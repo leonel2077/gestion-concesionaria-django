@@ -3,7 +3,7 @@ from django import forms
 from gestion_autos.models import (
     Auto,
     Marca,
-
+    ModeloAuto,
 )
 
 class AutoForm(forms.ModelForm):
@@ -35,10 +35,22 @@ class MarcaForm(forms.ModelForm):
     class Meta:
         model = Marca
         fields = [
-            'nombre'
+            'nombre',
         ]
         widgets = {
             'marca': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class ModeloAutoForm(forms.ModelForm):
+    marca = forms.ModelChoiceField(queryset=Marca.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    class Meta:
+        model = ModeloAuto
+        fields = [
+            'marca',
+            'nombre',
+        ]
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
         }
 '''
 class ProductImageForm(forms.ModelForm):

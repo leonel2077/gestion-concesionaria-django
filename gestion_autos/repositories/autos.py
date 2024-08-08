@@ -49,30 +49,9 @@ class AutoRepository:
             pais_fabricacion=pais_fabricacion,
             precio_dolares=precio_dolares,
         )
-    '''
-    def filter_by_category(
-        self,
-        categoria: Category,
-    ) -> List[Auto]:
-        return Auto.objects.filter(category=categoria)
-
-    def filter_by_category_name(
-        self,
-        nombre_categoria: str,
-    ) -> List[Auto]:
-        return Auto.objects.filter(
-            category__name=nombre_categoria
-        )
-    '''
+ 
     def delete(self, auto: Auto):
         return auto.delete()
-    
-
-    def get_Auto_gte_stock():
-        ...
-
-    def get_Auto_lte_stock():
-        ...
 
     def update(
         self,
@@ -93,3 +72,18 @@ class AutoRepository:
         auto.precio_dolares = precio_dolares
         auto.save()
         return auto
+
+'''
+ def filter_by_category(
+     self,
+     categoria: Category,
+ ) -> List[Auto]:
+     return Auto.objects.filter(category=categoria
+ def filter_by_category_name(
+     self,
+     nombre_categoria: str,
+ ) -> List[Auto]:
+     return Auto.objects.filter(
+         category__name=nombre_categoria
+     )
+ '''

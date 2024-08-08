@@ -11,13 +11,10 @@ class ModeloAutoRepository:
         marca = Marca.objects.get(id=marca_id)
         return ModeloAuto.objects.create(nombre=nombre, marca=marca)
 
-    def update(self, id, nombre, marca_id):
-        modelo = self.get_by_id(id)
+    def update(self, modelo: ModeloAuto, nombre:str, marca_id):
         modelo.nombre = nombre
         modelo.marca = Marca.objects.get(id=marca_id)
         modelo.save()
-        return modelo
 
-    def delete(self, id):
-        modelo = self.get_by_id(id)
+    def delete(self, modelo: ModeloAuto):
         modelo.delete()

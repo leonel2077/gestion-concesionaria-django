@@ -5,7 +5,7 @@ from gestion_autos.views.autos_view import (
     AutoView,
     AutoUpdate,
     AutoDelete,
-    AutoDetail
+    AutoDetail,
 )
 
 from gestion_autos.views.marcas_view import (
@@ -13,6 +13,13 @@ from gestion_autos.views.marcas_view import (
     MarcaUpdate,
     MarcaDelete,
     MarcaList,
+)
+
+from gestion_autos.views.modelos_view import (
+    ModeloAutoCreate,
+    ModeloAutoUpdate,
+    ModeloAutoDelete,
+    ModeloAutoList,
 )
 
 urlpatterns = [
@@ -26,4 +33,9 @@ urlpatterns = [
     path(route='marcas/create/', view=MarcaCreate.as_view(), name='marca_create'),
     path(route='marcas/<int:id>/update', view=MarcaUpdate.as_view(), name='marca_update'),
     path(route='marcas/<int:id>/delete', view=MarcaDelete.as_view(), name='marca_delete'),
+
+    path(route='modelos/', view=ModeloAutoList.as_view(), name='modelo_list'),
+    path(route='modelos/create/', view=ModeloAutoCreate.as_view(), name='modelo_create'),
+    path(route='modelos/<int:id>/update', view=ModeloAutoUpdate.as_view(), name='modelo_update'),
+    path(route='modelos/<int:id>/delete', view=ModeloAutoDelete.as_view(), name='modelo_delete'),
 ]
