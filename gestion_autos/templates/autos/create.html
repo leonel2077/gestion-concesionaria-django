@@ -1,35 +1,43 @@
-{% extends "index/base.html" %}
+{% extends "home/base.html" %}
 {% block content %}
 <div class="container mt-3">
-    <h2>Crear Producto</h2>
-    <form method="post">
+    <h2>Agregar Auto</h2>
+    <form method="post" novalidate>
         {% csrf_token %}
-        <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" name="name" class="form-control" required>
+        <div class="mb-3">
+            <label for="id_marca">Marca</label>
+            {{ form.marca }}
         </div>
-        <div class="form-group">
-            <label>Descripción</label>
-            <textarea name="description" class="form-control"></textarea>
+        <div class="mb-3">
+            <label for="id_modelo">Modelo</label>
+            {{ form.modelo }}
         </div>
-        <div class="form-group">
-            <label>Precio</label>
-            <input type="number" step="1000" name="price" class="form-control" required>
+        <div class="mb-3">
+            <label for="id_año_fabricacion">Año de Fabricación</label>
+            {{ form.año_fabricacion }}
         </div>
-        <div class="form-group">
-            <label>Categoría</label>
-            <select name="id_category" class="form-control">
-                <option value="">Selecciona una categoría</option>
-                {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="mb-3">
+            <label for="id_cantidad_puertas">Cantidad de Puertas</label>
+            {{ form.cantidad_puertas }}
         </div>
-        <div class="form-group">
-            <label>Stock</label>
-            <input type="number" name="stock" class="form-control">
+        <div class="mb-3">
+            <label for="id_cilindrada">Cilindrada</label>
+            {{ form.cilindrada }}
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+        <div class="mb-3">
+            <label for="id_tipo_combustible">Tipo de Combustible</label>
+            {{ form.tipo_combustible }}
+        </div>
+        <div class="mb-3">
+            <label for="id_pais_fabricacion">País de Fabricación</label>
+            {{ form.pais_fabricacion }}
+        </div>
+        <div class="mb-3">
+            <label for="id_precio_dolares">Precio en Dólares</label>
+            {{ form.precio_dolares }}
+        </div>
+        <button type="submit" class="btn btn-success">Agregar Auto</button>
     </form>
 </div>
+
 {% endblock %}

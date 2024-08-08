@@ -18,6 +18,12 @@ class ModeloAuto(models.Model):
 
     def __str__(self):
         return f'{self.marca} {self.nombre}'
+    
+class Pais(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.nombre}'
 
 class Auto(models.Model):
     modelo = models.ForeignKey(ModeloAuto, on_delete=models.CASCADE)
@@ -25,7 +31,7 @@ class Auto(models.Model):
     cantidad_puertas = models.IntegerField()
     cilindrada = models.FloatField()
     tipo_combustible = models.ForeignKey(TipoCombustible, on_delete=models.CASCADE)
-    pais_fabricacion = models.CharField(max_length=100)
+    pais_fabricacion = models.ForeignKey(Pais, on_delete=models.CASCADE)
     precio_dolares = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
