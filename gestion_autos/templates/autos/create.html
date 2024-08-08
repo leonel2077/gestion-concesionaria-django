@@ -1,0 +1,39 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <h2>Agregar Auto</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_modelo">Modelo</label>
+            {{ form.modelo }}
+        </div>
+        <div class="mb-3">
+            <label for="id_año_fabricacion">Año de Fabricación</label>
+            {{ form.año_fabricacion }}
+        </div>
+        <div class="mb-3">
+            <label for="id_cantidad_puertas">Cantidad de Puertas</label>
+            {{ form.cantidad_puertas }}
+        </div>
+        <div class="mb-3">
+            <label for="id_cilindrada">Cilindrada</label>
+            {{ form.cilindrada }}
+        </div>
+        <div class="mb-3">
+            <label for="id_tipo_combustible">Tipo de Combustible</label>
+            {{ form.tipo_combustible }}
+        </div>
+        <div class="mb-3">
+            <label for="id_pais_fabricacion">País de Fabricación</label>
+            {{ form.pais_fabricacion }}
+        </div>
+        <div class="mb-3">
+            <label for="id_precio_dolares">Precio en Dólares</label>
+            {{ form.precio_dolares }}
+        </div>
+        <button type="submit" class="btn btn-success">Agregar Auto</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "home/base.html" %}
+{% block content %}
+<h2>Lista de Modelos</h2>
+<a href="{% url 'modelo_create' %}" class="btn btn-primary mb-3">Agregar Modelo</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for modelo in modelos %}
+        <tr>
+            <td>{{ modelo.marca.nombre }}</td>
+            <td>{{ modelo.nombre }}</td>
+            <td>
+                <a href="{% url 'modelo_update' modelo.id %}" class="btn btn-success btn-sm">Editar</a>
+                <a href="{% url 'modelo_delete' modelo.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

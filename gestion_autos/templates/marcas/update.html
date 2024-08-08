@@ -1,0 +1,14 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <h2>Actualizar Marca</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nombre">Nombre de la Marca</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" value="{% if marca %}{{ marca.nombre }}{% endif %}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar Marca</button>
+    </form>
+</div>
+{% endblock %}

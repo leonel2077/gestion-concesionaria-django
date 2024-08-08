@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Marca, TipoCombustible, ModeloAuto, Auto
+from .models import Marca, TipoCombustible, ModeloAuto, Auto, Pais
 
 @admin.register(Marca)
 class MarcaAdmin(admin.ModelAdmin):
@@ -16,11 +16,17 @@ class ModeloAutoAdmin(admin.ModelAdmin):
     search_fields = ('nombre', 'marca__nombre',)
     list_filter = ('marca',)
 
+@admin.register(Pais)
+class PaisAdmin(admin.ModelAdmin):
+    list_display = ('nombre',)
+    search_fields = ('nombre',)
+    list_filter = ('nombre',)
+
 @admin.register(Auto)
 class AutoAdmin(admin.ModelAdmin):
     ordering = ('modelo__nombre', 'año_fabricacion',)
     search_fields = ('modelo__nombre', 'año_fabricacion', 'tipo_combustible__tipo',)
-    list_filter = ('modelo__marca', 'tipo_combustible',)
+    list_filter = ('modelo__marca', 'tipo_combustible', 'pais_fabricacion')
     empty_value_display = 'No disponible'
 
     list_display = (
