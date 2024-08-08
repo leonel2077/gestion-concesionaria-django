@@ -1,13 +1,15 @@
 {% extends "home/base.html" %}
 {% block content %}
 <div class="container mt-3">
-    <h2>Actualizar Modelo</h2>
+    <h2>Modificar Modelo</h2>
     <form method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            <label for="nombre">Nombre del modelo</label>
-            <input type="text" name="nombre" id="nombre" class="form-control" value="{% if modelo %}{{ modelo.nombre }}{% endif %}" required>
+        <div class="form-group">
+            <label for="marca">Marca</label>
+            {{form.marca}}
         </div>
+        <label for="nombre">Modelo</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" value="{% if modelo %}{{ modelo.nombre }}{% endif %}" required>
         <button type="submit" class="btn btn-primary">Actualizar Modelo</button>
     </form>
 </div>

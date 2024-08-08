@@ -36,20 +36,24 @@ class ModeloAutoList(View):
     
 class ModeloAutoUpdate(View):
     def get(self, request, id):
+        form = ModeloAutoForm()
         modelo = repo.get_by_id(id=id)
 
         return render(
             request,
             "modelos/update.html",
-            {'modelo': modelo}
+            {
+                'modelo': modelo,
+                'form': form
+            }
         )
     
     def post(self, request, id):
         modelo = repo.get_by_id(id=id)
         data = request.POST
-        marca = data.get('marca')
         nombre = data.get('nombre')
-        repo.update(modelo=modelo, nombre=nombre, marca=marca)
+        marca = data.get('marca')
+        repo.update(modelo=modelo, nombre=nombre, marca_id=marca)
         return redirect('modelo_list')
     
 class ModeloAutoDelete(View):

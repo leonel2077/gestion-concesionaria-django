@@ -3,12 +3,17 @@ from django.shortcuts import (
     redirect
     )
 from gestion_autos.repositories.autos import AutoRepository
+from gestion_autos.repositories.modelos import ModeloAutoRepository
+from gestion_autos.repositories.combustibles import TipoCombustibleRepository
+from gestion_autos.repositories.paises import PaisRepository
 from django.views import View
 from gestion_autos.forms import AutoForm
 #from django.contrib.auth.decorators import login_required
 
 repo = AutoRepository()
-
+repo_modelo = ModeloAutoRepository()
+repo_tipo_combustible = TipoCombustibleRepository()
+repo_pais_fabricacion = PaisRepository()
 
 #@login_required(login_url="/login/")
 class AutoCreate(View):
@@ -23,16 +28,18 @@ class AutoCreate(View):
     
     def post(self, request):
         data = request.POST
-        modelo = data.get('modelo')
+        modelo_id = data.get('modelo')
+        modelo = repo_modelo.get_by_id(id=modelo_id)
         año_fabricacion = data.get('año_fabricacion')
         cantidad_puertas = data.get('cantidad_puertas')
         cilindrada = data.get('cilindrada')
-        tipo_combustible = data.get('tipo_combustible')
-        pais_fabricacion = data.get('pais_fabricacion')
+        tipo_combustible_id = data.get('tipo_combustible')
+        tipo_combustible = repo_tipo_combustible.get_by_id(id=tipo_combustible_id)
+        pais_fabricacion_id = data.get('pais_fabricacion')
+        pais_fabricacion = repo_pais_fabricacion.get_by_id(id=pais_fabricacion_id)
         precio_dolares = data.get('precio_dolares')
 
         auto = repo.create(
-            auto=auto,
             modelo=modelo,
             año_fabricacion = año_fabricacion,
             cantidad_puertas = cantidad_puertas,
@@ -41,7 +48,7 @@ class AutoCreate(View):
             pais_fabricacion = pais_fabricacion,
             precio_dolares = precio_dolares,
         )
-        return redirect("auto_detail" ,auto.id)
+        return redirect("auto_detail", auto.id)
 
 
 #@login_required(login_url="/login/")
@@ -60,13 +67,15 @@ class AutoView(View):
 #@login_required(login_url="/login/")
 class AutoUpdate(View):
     def get(self, request, id):
+        form = AutoForm()
         auto = repo.get_by_id(id=id)
         
         return render(
             request,
             "autos/update.html",
             {
-                'auto': auto
+                'auto': auto,
+                'form': form,
             }
         )
     
@@ -74,14 +83,17 @@ class AutoUpdate(View):
         auto = repo.get_by_id(id=id)
         data = request.POST
 
-        modelo = data.get('modelo')
+        modelo_id = data.get('modelo')
+        modelo = repo_modelo.get_by_id(id=modelo_id)
         año_fabricacion = data.get('año_fabricacion')
         cantidad_puertas = data.get('cantidad_puertas')
         cilindrada = data.get('cilindrada')
-        tipo_combustible = data.get('tipo_combustible')
-        pais_fabricacion = data.get('pais_fabricacion')
+        tipo_combustible_id = data.get('tipo_combustible')
+        tipo_combustible = repo_tipo_combustible.get_by_id(id=tipo_combustible_id)
+        pais_fabricacion_id = data.get('pais_fabricacion')
+        pais_fabricacion = repo_pais_fabricacion.get_by_id(id=pais_fabricacion_id)
         precio_dolares = data.get('precio_dolares')
-        edited_auto = repo.update(
+        repo.update(
             auto=auto,
             modelo=modelo,
             año_fabricacion=año_fabricacion,
@@ -91,7 +103,7 @@ class AutoUpdate(View):
             pais_fabricacion=pais_fabricacion,
             precio_dolares=precio_dolares,
         )
-        return redirect("auto_detail",edited_auto.id)
+        return redirect("auto_detail", id)
 
 #@login_required(login_url="/login/")
 class AutoDelete(View):

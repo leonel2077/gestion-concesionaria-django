@@ -32,13 +32,13 @@ class AutoRepository:
 
     def create(
         self,
-        modelo: ModeloAuto,
         año_fabricacion: int,
         cantidad_puertas: int,
         cilindrada: float,
-        tipo_combustible: TipoCombustible,
-        pais_fabricacion: str,
         precio_dolares: float,
+        pais_fabricacion: Optional[Pais] = None,
+        modelo: Optional[ModeloAuto] = None,
+        tipo_combustible: Optional[TipoCombustible] = None,
     ) -> Auto:
         return Auto.objects.create(
             modelo=modelo,
@@ -56,13 +56,14 @@ class AutoRepository:
     def update(
         self,
         auto: Auto,
-        modelo: ModeloAuto,
         año_fabricacion = float,
         cantidad_puertas = float,
         cilindrada = float,
-        tipo_combustible = TipoCombustible,
-        pais_fabricacion = Pais,
-        precio_dolares = float) -> Auto:
+        precio_dolares = float,
+        pais_fabricacion: Optional[Pais] = None,
+        modelo: Optional[ModeloAuto] = None,
+        tipo_combustible: Optional[TipoCombustible] = None,
+        ) -> Auto:
         auto.modelo = modelo
         auto.año_fabricacion = año_fabricacion
         auto.cantidad_puertas = cantidad_puertas
@@ -71,7 +72,6 @@ class AutoRepository:
         auto.pais_fabricacion = pais_fabricacion
         auto.precio_dolares = precio_dolares
         auto.save()
-        return auto
 
 '''
  def filter_by_category(
