@@ -6,6 +6,7 @@ from gestion_autos.repositories.autos import AutoRepository
 from gestion_autos.repositories.modelos import ModeloAutoRepository
 from gestion_autos.repositories.combustibles import TipoCombustibleRepository
 from gestion_autos.repositories.paises import PaisRepository
+from gestion_autos.repositories.comentarios import ComentarioRepository
 from django.views import View
 from gestion_autos.forms import AutoForm
 #from django.contrib.auth.decorators import login_required
@@ -14,6 +15,7 @@ repo = AutoRepository()
 repo_modelo = ModeloAutoRepository()
 repo_tipo_combustible = TipoCombustibleRepository()
 repo_pais_fabricacion = PaisRepository()
+repo_comentarios = ComentarioRepository()
 
 #@login_required(login_url="/login/")
 class AutoCreate(View):
@@ -116,8 +118,12 @@ class AutoDelete(View):
 class AutoDetail(View):
     def get(self, request, id):   
         auto = repo.get_by_id(id=id)
+        comentarios = repo.get_comments(id=id)
         return render(
             request,
             'autos/detail.html',
-            {"auto":auto}
+            {
+                "auto":auto,
+                "comentarios":comentarios,
+                }
         )

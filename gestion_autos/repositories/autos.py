@@ -1,8 +1,10 @@
 #import logging
 from typing import List, Optional
 from gestion_autos.models import Auto, ModeloAuto, TipoCombustible, Pais
-
+from gestion_autos.repositories.comentarios import ComentarioRepository
 #logger = logging.getLogger(__name__)
+
+comentarios_repo = ComentarioRepository()
 
 class AutoRepository:
 
@@ -72,6 +74,14 @@ class AutoRepository:
         auto.pais_fabricacion = pais_fabricacion
         auto.precio_dolares = precio_dolares
         auto.save()
+
+    def get_comments(self, id):
+        all_comentarios = comentarios_repo.get_all()
+        comentarios = []
+        for comentario in all_comentarios:
+            if comentario.auto.id == id:
+                comentarios.append(comentario)
+        return comentarios
 
 '''
  def filter_by_category(

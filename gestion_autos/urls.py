@@ -22,6 +22,12 @@ from gestion_autos.views.modelos_view import (
     ModeloAutoList,
 )
 
+from gestion_autos.views.comentarios_view import (
+    ComentarioCreate,
+    ComentarioUpdate,
+    ComentarioDelete,
+)
+
 urlpatterns = [
     path(route='', view=AutoView.as_view(), name='auto_list'),
     path(route='create/',view=AutoCreate.as_view(), name='auto_create'),
@@ -38,4 +44,8 @@ urlpatterns = [
     path(route='modelos/create/', view=ModeloAutoCreate.as_view(), name='modelo_create'),
     path(route='modelos/<int:id>/update', view=ModeloAutoUpdate.as_view(), name='modelo_update'),
     path(route='modelos/<int:id>/delete', view=ModeloAutoDelete.as_view(), name='modelo_delete'),
+
+    path(route='comentarios/create/<int:auto_id>', view=ComentarioCreate.as_view(), name='comentario_create'),
+    path(route='comentarios/edit/<int:id>', view=ComentarioUpdate.as_view(), name='comentario_edit'),
+    path(route='comentarios/delete/<int:id>', view=ComentarioDelete.as_view(), name='comentario_delete'),
 ]
