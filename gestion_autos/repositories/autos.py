@@ -75,6 +75,7 @@ class AutoRepository:
         auto.precio_dolares = precio_dolares
         auto.save()
 
+# TO DO: Hacer modelo ComentarioAuto. Esto usarìa mucha memoria 
     def get_comments(self, id):
         all_comentarios = comentarios_repo.get_all()
         comentarios = []
