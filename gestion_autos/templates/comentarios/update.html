@@ -1,0 +1,14 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <h2>Editar Comentario</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="contenido">Comentario:</label>
+            <input type="text" name="contenido" id="contenido" class="form-control" value="{% if comentario %}{{ comentario.contenido }}{% endif %}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+{% endblock %}
