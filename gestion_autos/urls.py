@@ -22,6 +22,8 @@ from gestion_autos.views.modelos_view import (
     ModeloAutoList,
 )
 
+from gestion_autos.views.imagenes_autos_view import (ImagenAutoView)
+
 urlpatterns = [
     path(route='', view=AutoView.as_view(), name='auto_list'),
     path(route='create/',view=AutoCreate.as_view(), name='auto_create'),
@@ -38,4 +40,7 @@ urlpatterns = [
     path(route='modelos/create/', view=ModeloAutoCreate.as_view(), name='modelo_create'),
     path(route='modelos/<int:id>/update', view=ModeloAutoUpdate.as_view(), name='modelo_update'),
     path(route='modelos/<int:id>/delete', view=ModeloAutoDelete.as_view(), name='modelo_delete'),
+
+    path(route='imagenes_autos/', view=ImagenAutoView.as_view(), name='imagenes_autos'),
+
 ]

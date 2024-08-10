@@ -4,6 +4,7 @@ from gestion_autos.models import (
     Auto,
     Marca,
     ModeloAuto,
+    ImagenAuto,
 )
 
 class AutoForm(forms.ModelForm):
@@ -49,13 +50,11 @@ class ModeloAutoForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
         }
-'''
-class ProductImageForm(forms.ModelForm):
+
+class ImagenAutoForm(forms.ModelForm):
     class Meta:
-        model = ProductImage
+        model: ImagenAuto
         fields = [
-            'product',
-            'image',
-            'description',
+            'auto',
+            'imagen'
         ]
-'''

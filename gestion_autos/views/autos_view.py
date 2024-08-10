@@ -6,6 +6,7 @@ from gestion_autos.repositories.autos import AutoRepository
 from gestion_autos.repositories.modelos import ModeloAutoRepository
 from gestion_autos.repositories.combustibles import TipoCombustibleRepository
 from gestion_autos.repositories.paises import PaisRepository
+from gestion_autos.models import ImagenAuto
 from django.views import View
 from gestion_autos.forms import AutoForm
 #from django.contrib.auth.decorators import login_required
@@ -116,8 +117,12 @@ class AutoDelete(View):
 class AutoDetail(View):
     def get(self, request, id):   
         auto = repo.get_by_id(id=id)
+        imagen= ImagenAuto.objects.filter(auto=auto).first()
         return render(
             request,
             'autos/detail.html',
-            {"auto":auto}
+            {
+                "auto":auto,
+                "imagen":imagen,
+            }
         )

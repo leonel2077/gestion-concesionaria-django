@@ -36,3 +36,16 @@ class Auto(models.Model):
 
     def __str__(self):
         return f'{self.modelo} ({self.año_fabricacion})'
+
+class ImagenAuto(models.Model):
+    auto = models.ForeignKey(
+        Auto,
+        on_delete=models.CASCADE,
+        related_name='Auto',
+        verbose_name='Autos',
+    )
+    image = models.ImageField(upload_to='imagenes_autos/', null=True)
+
+    class Meta:
+            verbose_name = "Imagen"
+            verbose_name_plural = "Imagenes"
