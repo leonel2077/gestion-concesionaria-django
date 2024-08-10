@@ -28,6 +28,8 @@ from gestion_autos.views.comentarios_view import (
     ComentarioDelete,
 )
 
+from gestion_autos.views.imagenes_autos_view import (ImagenAutoView)
+
 urlpatterns = [
     path(route='', view=AutoView.as_view(), name='auto_list'),
     path(route='create/',view=AutoCreate.as_view(), name='auto_create'),
@@ -48,4 +50,6 @@ urlpatterns = [
     path(route='comentarios/create/<int:auto_id>', view=ComentarioCreate.as_view(), name='comentario_create'),
     path(route='comentarios/edit/<int:id>', view=ComentarioUpdate.as_view(), name='comentario_edit'),
     path(route='comentarios/delete/<int:id>', view=ComentarioDelete.as_view(), name='comentario_delete'),
+
+    path(route='imagenes_autos/', view=ImagenAutoView.as_view(), name='imagenes_autos'),
 ]

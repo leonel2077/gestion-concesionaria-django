@@ -5,6 +5,7 @@ from gestion_autos.models import (
     Marca,
     ModeloAuto,
     Comentario,
+    ImagenAuto,
 )
 
 class AutoForm(forms.ModelForm):
@@ -59,13 +60,10 @@ class ComentarioForm(forms.ModelForm):
             'contenido': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
         }
 
-'''
-class ProductImageForm(forms.ModelForm):
+class ImagenAutoForm(forms.ModelForm):
     class Meta:
-        model = ProductImage
+        model: ImagenAuto
         fields = [
-            'product',
-            'image',
-            'description',
+            'auto',
+            'imagen'
         ]
-'''
