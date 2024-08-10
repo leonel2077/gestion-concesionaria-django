@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Marca, TipoCombustible, ModeloAuto, Auto, Pais
+from .models import Marca, TipoCombustible, ModeloAuto, Auto, Pais, ImagenAuto
 
 @admin.register(Marca)
 class MarcaAdmin(admin.ModelAdmin):
@@ -67,3 +67,9 @@ class AutoAdmin(admin.ModelAdmin):
     ]
 
 
+@admin.register(ImagenAuto)
+class AutoAdmin(admin.ModelAdmin):
+    list_display = (
+        'auto',
+        'image',
+    )

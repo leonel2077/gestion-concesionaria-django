@@ -4,7 +4,11 @@ from gestion_autos.models import (
     Auto,
     Marca,
     ModeloAuto,
+<<<<<<< HEAD
     Comentario,
+=======
+    ImagenAuto,
+>>>>>>> origin/imagenes
 )
 
 class AutoForm(forms.ModelForm):
@@ -51,6 +55,7 @@ class ModeloAutoForm(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+<<<<<<< HEAD
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
@@ -61,11 +66,12 @@ class ComentarioForm(forms.ModelForm):
 
 '''
 class ProductImageForm(forms.ModelForm):
+=======
+class ImagenAutoForm(forms.ModelForm):
+>>>>>>> origin/imagenes
     class Meta:
-        model = ProductImage
+        model: ImagenAuto
         fields = [
-            'product',
-            'image',
-            'description',
+            'auto',
+            'imagen'
         ]
-'''

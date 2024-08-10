@@ -7,6 +7,7 @@ from gestion_autos.repositories.modelos import ModeloAutoRepository
 from gestion_autos.repositories.combustibles import TipoCombustibleRepository
 from gestion_autos.repositories.paises import PaisRepository
 from gestion_autos.repositories.comentarios import ComentarioRepository
+from gestion_autos.models import ImagenAuto
 from django.views import View
 from gestion_autos.forms import AutoForm
 #from django.contrib.auth.decorators import login_required
@@ -119,11 +120,13 @@ class AutoDetail(View):
     def get(self, request, id):   
         auto = repo.get_by_id(id=id)
         comentarios = repo.get_comments(id=id)
+        imagen = ImagenAuto.objects.filter(auto=auto).first()
         return render(
             request,
             'autos/detail.html',
             {
                 "auto":auto,
                 "comentarios":comentarios,
-                }
+                "imagen":imagen,
+            }            
         )
