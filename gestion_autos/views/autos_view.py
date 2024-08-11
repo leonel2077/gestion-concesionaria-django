@@ -61,14 +61,19 @@ class AutoCreate(View):
 
 class AutoView(View):
     def get(self, request):
-        autos = repo.get_all()
-    
+        marca_id = request.GET.get('marca_id')
+        if marca_id:
+            autos = repo.get_by_marca(marca_id=marca_id)
+        else:
+            autos = repo.get_all()
+
         return render(
             request,
             'autos/list.html',
-            dict(
-                autos=autos
-            )
+            {
+                'autos': autos,
+                'selected_marca': marca_id
+            } 
         )
 
 @method_decorator(user_passes_test(is_admin), name='dispatch')

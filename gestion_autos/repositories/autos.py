@@ -14,6 +14,9 @@ class AutoRepository:
     def filter_by_id(self, id: int) -> Optional[Auto]:
         return Auto.objects.filter(id=id).first()
     
+    def get_by_marca(self, marca_id):
+        return Auto.objects.filter(modelo__marca_id=marca_id)
+    
     def get_by_id(self, id: int) -> Optional[Auto]:
         try:
             auto = Auto.objects.get(id=id)
