@@ -1,16 +1,18 @@
+from django.contrib.auth.decorators import user_passes_test
+from django.views import View
 from django.shortcuts import (
     render,
     redirect
     )
+from django.utils.decorators import method_decorator
+from gestion_autos.admin import is_admin
+from gestion_autos.forms import AutoForm
+from gestion_autos.models import ImagenAuto
 from gestion_autos.repositories.autos import AutoRepository
 from gestion_autos.repositories.modelos import ModeloAutoRepository
 from gestion_autos.repositories.combustibles import TipoCombustibleRepository
 from gestion_autos.repositories.paises import PaisRepository
 from gestion_autos.repositories.comentarios import ComentarioRepository
-from gestion_autos.models import ImagenAuto
-from django.views import View
-from gestion_autos.forms import AutoForm
-#from django.contrib.auth.decorators import login_required
 
 repo = AutoRepository()
 repo_modelo = ModeloAutoRepository()
@@ -18,7 +20,7 @@ repo_tipo_combustible = TipoCombustibleRepository()
 repo_pais_fabricacion = PaisRepository()
 repo_comentarios = ComentarioRepository()
 
-#@login_required(login_url="/login/")
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class AutoCreate(View):
     def get(self, request):
         form = AutoForm()
@@ -51,10 +53,12 @@ class AutoCreate(View):
             pais_fabricacion = pais_fabricacion,
             precio_dolares = precio_dolares,
         )
+        imagenes = request.FILES.getlist('imagenes')
+        for imagen in imagenes:
+            ImagenAuto.objects.create(auto=auto, image=imagen)
         return redirect("auto_detail", auto.id)
 
 
-#@login_required(login_url="/login/")
 class AutoView(View):
     def get(self, request):
         autos = repo.get_all()
@@ -67,11 +71,12 @@ class AutoView(View):
             )
         )
 
-#@login_required(login_url="/login/")
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class AutoUpdate(View):
     def get(self, request, id):
-        form = AutoForm()
         auto = repo.get_by_id(id=id)
+
+        form = AutoForm(instance=auto)
         
         return render(
             request,
@@ -106,16 +111,20 @@ class AutoUpdate(View):
             pais_fabricacion=pais_fabricacion,
             precio_dolares=precio_dolares,
         )
+        imagenes = request.FILES.getlist('imagenes')
+        if imagenes:
+                ImagenAuto.objects.filter(auto=auto).delete()
+                
+                for imagen in imagenes:
+                    ImagenAuto.objects.create(auto=auto, image=imagen)
         return redirect("auto_detail", id)
 
-#@login_required(login_url="/login/")
 class AutoDelete(View):
     def get(self, request, id):
         auto = repo.get_by_id(id=id)
         repo.delete(auto=auto)
         return redirect("auto_list")
     
-#@login_required(login_url="/login/")
 class AutoDetail(View):
     def get(self, request, id):   
         auto = repo.get_by_id(id=id)

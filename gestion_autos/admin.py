@@ -73,3 +73,6 @@ class AutoAdmin(admin.ModelAdmin):
         'auto',
         'image',
     )
+
+def is_admin(user):
+    return user.is_staff

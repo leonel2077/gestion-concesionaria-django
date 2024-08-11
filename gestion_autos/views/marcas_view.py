@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
-from gestion_autos.repositories.marcas import MarcaRepository
 from django.views import View
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
+from gestion_autos.admin import is_admin
+from gestion_autos.repositories.marcas import MarcaRepository
 from gestion_autos.forms import MarcaForm
 
 repo = MarcaRepository()
 
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class MarcaCreate(View):
     def get(self, request):
         form = MarcaForm()
@@ -22,7 +26,8 @@ class MarcaCreate(View):
             nombre=nombre
         )
         return redirect("marca_list")
-    
+
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class MarcaList(View):
     def get(self, request):
         marcas = repo.get_all()
@@ -32,7 +37,7 @@ class MarcaList(View):
             {'marcas': marcas}
         )
     
-    
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class MarcaUpdate(View):
     def get(self, request, id):
         marca = repo.get_by_id(id=id)
@@ -50,6 +55,7 @@ class MarcaUpdate(View):
         repo.update(marca=marca, nombre=nombre)
         return redirect('marca_list')
 
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class MarcaDelete(View):
     def get(self, request, id):
         marca = repo.get_by_id(id=id)

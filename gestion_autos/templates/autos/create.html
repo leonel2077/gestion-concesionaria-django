@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container mt-3">
     <h2>Agregar Auto</h2>
-    <form method="post" novalidate>
+    <form method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <div class="mb-3">
             <label for="id_modelo">Modelo</label>
@@ -32,8 +32,11 @@
             <label for="id_precio_dolares">Precio en Dólares</label>
             {{ form.precio_dolares }}
         </div>
+        <div class="mb-3">
+            <label for="id_imagenes">Imágenes del Auto</label>
+            <input type="file" name="imagenes" id="id_imagenes" class="form-control" multiple>
+        </div>
         <button type="submit" class="btn btn-success">Agregar Auto</button>
     </form>
 </div>
-
 {% endblock %}
