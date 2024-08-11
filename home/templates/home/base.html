@@ -12,8 +12,10 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">Inicio</a>
             <a class="nav-link" href="{% url 'auto_list' %}">Lista de Autos</a>
+            {% if user.is_staff %}
             <a class="nav-link" href="{% url 'marca_list' %}">Lista de Marcas</a>
             <a class="nav-link" href="{% url 'modelo_list' %}">Lista de Modelos</a>
+            {% endif %}
             <a class="nav-link" href="{% url 'imagenes_autos' %}">Imagenes</a>
 
             {% if user.is_authenticated %}

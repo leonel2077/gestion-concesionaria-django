@@ -1,27 +1,24 @@
+from django.contrib.auth.decorators import user_passes_test
+from django.views import View
 from django.shortcuts import (
     render,
     redirect
     )
+from django.utils.decorators import method_decorator
+from gestion_autos.admin import is_admin
+from gestion_autos.forms import AutoForm
+from gestion_autos.models import ImagenAuto
 from gestion_autos.repositories.autos import AutoRepository
 from gestion_autos.repositories.modelos import ModeloAutoRepository
 from gestion_autos.repositories.combustibles import TipoCombustibleRepository
 from gestion_autos.repositories.paises import PaisRepository
 from gestion_autos.repositories.comentarios import ComentarioRepository
-from gestion_autos.models import ImagenAuto
-from django.views import View
-from gestion_autos.forms import AutoForm
-from django.contrib.auth.decorators import user_passes_test
-from django.utils.decorators import method_decorator
-#from django.contrib.auth.decorators import login_required
 
 repo = AutoRepository()
 repo_modelo = ModeloAutoRepository()
 repo_tipo_combustible = TipoCombustibleRepository()
 repo_pais_fabricacion = PaisRepository()
 repo_comentarios = ComentarioRepository()
-
-def is_admin(user):
-    return user.is_staff
 
 @method_decorator(user_passes_test(is_admin), name='dispatch')
 class AutoCreate(View):
@@ -59,7 +56,6 @@ class AutoCreate(View):
         return redirect("auto_detail", auto.id)
 
 
-#@login_required(login_url="/login/")
 class AutoView(View):
     def get(self, request):
         autos = repo.get_all()
@@ -113,14 +109,12 @@ class AutoUpdate(View):
         )
         return redirect("auto_detail", id)
 
-#@login_required(login_url="/login/")
 class AutoDelete(View):
     def get(self, request, id):
         auto = repo.get_by_id(id=id)
         repo.delete(auto=auto)
         return redirect("auto_list")
     
-#@login_required(login_url="/login/")
 class AutoDetail(View):
     def get(self, request, id):   
         auto = repo.get_by_id(id=id)

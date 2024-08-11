@@ -2,7 +2,9 @@
 {% block content %}
 <div class="container mt-3">
     <h2>Lista de Autos</h2>
+    {% if user.is_staff %}
     <a href="{% url 'auto_create' %}" class="btn btn-primary mb-3">Agregar Auto</a>
+    {% endif %}
     <table class="table table-striped">
         <thead>
             <tr>
