@@ -2,6 +2,20 @@
 {% block content %}
 <div class="container mt-3">
     <h2>Lista de Autos</h2>
+    <p>Total de autos disponibles: {{ total_autos }}</p>
+    
+    <form method="get" action="">
+        <label for="marca_id">Filtrar por marca:</label>
+        <select name="marca_id" id="marca_id" class="form-select mb-3" onchange="this.form.submit()">
+            <option value="">Todas las marcas</option>
+            {% for marca in all_marcas %}
+                <option value="{{ marca.id }}" {% if selected_marca == marca.id|stringformat:"s" %}selected{% endif %}>
+                    {{ marca.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
     {% if user.is_staff %}
     <a href="{% url 'auto_create' %}" class="btn btn-primary mb-3">Agregar Auto</a>
     {% endif %}
@@ -35,5 +49,6 @@
             {% endfor %}
         </tbody>
     </table>
+    
 </div>
 {% endblock %}
