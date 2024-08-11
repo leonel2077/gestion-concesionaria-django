@@ -48,7 +48,7 @@ Este proyecto es un sistema web para la gestión de una concesionaria de autos, 
   - `TipoCombustible`: Define el tipo combustible de un auto.
   - `Comentario`: Permite a los usuarios dejar comentarios en los autos.
   - `Pais`: Representa el país de fabricación de los autos.
-  - `Pais`: Representa la imágen del auto.
+  - `ImagenAuto`: Representa la imágen del auto.
 
 - **Vistas**:
   - Utiliza vistas basadas en clases (Class-Based Views) para todas las operaciones CRUD.
