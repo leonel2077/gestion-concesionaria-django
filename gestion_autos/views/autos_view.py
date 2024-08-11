@@ -53,6 +53,9 @@ class AutoCreate(View):
             pais_fabricacion = pais_fabricacion,
             precio_dolares = precio_dolares,
         )
+        imagenes = request.FILES.getlist('imagenes')
+        for imagen in imagenes:
+            ImagenAuto.objects.create(auto=auto, image=imagen)
         return redirect("auto_detail", auto.id)
 
 
@@ -71,8 +74,9 @@ class AutoView(View):
 @method_decorator(user_passes_test(is_admin), name='dispatch')
 class AutoUpdate(View):
     def get(self, request, id):
-        form = AutoForm()
         auto = repo.get_by_id(id=id)
+
+        form = AutoForm(instance=auto)
         
         return render(
             request,
@@ -107,6 +111,12 @@ class AutoUpdate(View):
             pais_fabricacion=pais_fabricacion,
             precio_dolares=precio_dolares,
         )
+        imagenes = request.FILES.getlist('imagenes')
+        if imagenes:
+                ImagenAuto.objects.filter(auto=auto).delete()
+                
+                for imagen in imagenes:
+                    ImagenAuto.objects.create(auto=auto, image=imagen)
         return redirect("auto_detail", id)
 
 class AutoDelete(View):
