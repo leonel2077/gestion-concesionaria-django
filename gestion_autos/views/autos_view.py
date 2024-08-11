@@ -10,6 +10,8 @@ from gestion_autos.repositories.comentarios import ComentarioRepository
 from gestion_autos.models import ImagenAuto
 from django.views import View
 from gestion_autos.forms import AutoForm
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
 #from django.contrib.auth.decorators import login_required
 
 repo = AutoRepository()
@@ -18,7 +20,10 @@ repo_tipo_combustible = TipoCombustibleRepository()
 repo_pais_fabricacion = PaisRepository()
 repo_comentarios = ComentarioRepository()
 
-#@login_required(login_url="/login/")
+def is_admin(user):
+    return user.is_staff
+
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class AutoCreate(View):
     def get(self, request):
         form = AutoForm()
@@ -67,7 +72,7 @@ class AutoView(View):
             )
         )
 
-#@login_required(login_url="/login/")
+@method_decorator(user_passes_test(is_admin), name='dispatch')
 class AutoUpdate(View):
     def get(self, request, id):
         form = AutoForm()

@@ -6,12 +6,14 @@
         <div class="card-body">
             <h5 class="card-title">{{ auto.marca }}</h5>
             <p class="card-text">{{ auto.modelo }}</p>
-            <p class="card-text"><strong>Precio:</strong> {{ auto.precio_dolares }}</p>
+            <p class="card-text"><strong>Precio:</strong> ${{ auto.precio_dolares }}</p>
             <p class="card-text"><strong>Tipo combustible:</strong> {{ auto.tipo_combustible }}</p>
             <img src="{{imagen.image.url}}" class="img-fluid" alt="Imagen"> </div>  
         </div>
-        <a href="{% url 'auto_detail' auto.id %}" class="btn btn-primary">Editar</a>
+        {% if user.is_staff %}
+        <a href="{% url 'auto_update' auto.id %}" class="btn btn-primary">Editar</a>
         <a href="{% url 'auto_delete' auto.id %}" class="btn btn-danger">Eliminar</a>
+        {% endif %}
         <a href="{% url 'auto_list' %}" class="btn btn-secondary">Volver a la lista</a>
     </div>
 
@@ -34,6 +36,8 @@
                     <strong>{{ comentario.usuario.username }}:</strong> {{ comentario.contenido }}
                     {% if comentario.usuario == user %}
                         <a href="{% url 'comentario_edit' comentario.id %}" class="btn btn-primary">Editar</a>
+                    {% endif %}
+                    {% if user.is_staff or comentario.usuario == user %}
                         <a href="{% url 'comentario_delete' comentario.id %}" class="btn btn-danger">Eliminar</a>
                     {% endif %}
                 </li>
