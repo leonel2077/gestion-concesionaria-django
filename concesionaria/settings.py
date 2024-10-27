@@ -23,17 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z*d8mq8urvamx2be$2#!&z7&pbbf%4#bo@ez=)w#fz1i&@pc9&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'gestion_autos',
-    'home',
-    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+SELF_APPS = [
+    'gestion_autos',
+    'home',
+    'users',
+    'api_v1',
+]
+
+EXTERNAL_APPS = [
+    'rest_framework',
+]
+
+INSTALLED_APPS = INSTALLED_APPS + SELF_APPS + EXTERNAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
