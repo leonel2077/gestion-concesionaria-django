@@ -1,35 +1,42 @@
 from rest_framework import serializers
+from gestion_autos.models import Auto, ModeloAuto, Marca
 
-from gestion_autos.models import Auto, ModeloAuto
+class MarcaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Marca
+        fields = ['nombre']
+
+class ModeloAutoSerializer(serializers.ModelSerializer):
+    marca = MarcaSerializer()  
+
+    class Meta:
+        model = ModeloAuto
+        fields = ['nombre', 'marca']
 
 class AutoSerializer(serializers.ModelSerializer):
+    modelo = ModeloAutoSerializer()  
+
     class Meta:
         model = Auto
-        fields = '__all__'
+        fields = ['modelo', 'año_fabricacion', 'cantidad_puertas', 'cilindrada', 'tipo_combustible', 'pais_fabricacion', 'precio_dolares']
 
-    def get_marca(self, value):
-        if value.modelo is None:
-            return "No tiene marca"
-        return value.modelo
+    def get_marca(self, obj):
+        return obj.modelo.marca.nombre if obj.modelo and obj.modelo.marca else "No tiene marca"
 
     def update(self, instance, validated_data):
         modelo_data = validated_data.pop(
             'modelo', None
         )
-        modelo, _= ModeloAuto.objects.get_or_create(
-          **modelo_data
-        )
+        if modelo_data:
+            modelo, _ = ModeloAuto.objects.get_or_create(**modelo_data)
+            instance.modelo = modelo
 
-        instance.modelo = modelo
-
-        instance.nombre = validated_data.get('nombre', instance.nombre)
-        instance.marca = validated_data.get('marca', instance.marca)
-        instance.año_fabricacion = models.IntegerField()
-        instance.cantidad_puertas = models.IntegerField()
-        instance.cilindrada = models.FloatField()
-        instance.tipo_combustible = models.ForeignKey(TipoCombustible, on_delete=models.CASCADE)
-        instance.pais_fabricacion = models.ForeignKey(Pais, on_delete=models.CASCADE)
-        instance.precio_dolares = models.DecimalField(max_digits=10, decimal_places=2)
+        instance.año_fabricacion = validated_data.get('año_fabricacion', instance.año_fabricacion)
+        instance.cantidad_puertas = validated_data.get('cantidad_puertas', instance.cantidad_puertas)
+        instance.cilindrada = validated_data.get('cilindrada', instance.cilindrada)
+        instance.tipo_combustible = validated_data.get('tipo_combustible', instance.tipo_combustible)
+        instance.pais_fabricacion = validated_data.get('pais_fabricacion', instance.pais_fabricacion)
+        instance.precio_dolares = validated_data.get('precio_dolares', instance.precio_dolares)
 
         instance.save()
         return instance
