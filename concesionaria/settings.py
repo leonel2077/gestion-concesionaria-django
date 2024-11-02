@@ -48,6 +48,7 @@ SELF_APPS = [
 
 EXTERNAL_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + SELF_APPS + EXTERNAL_APPS
@@ -144,9 +145,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.authentication.TokenAuthentication',
     ],
 }

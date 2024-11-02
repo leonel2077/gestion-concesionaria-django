@@ -1,12 +1,10 @@
 # Crear cliente si el usuario es STAFF
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from api_v1.serializers.clientes_serializer import ClienteSerializer
 
 class CrearClienteView(APIView):
-    permission_classes = [IsAuthenticated]  
 
     def post(self, request):
         if not request.user.is_staff:
