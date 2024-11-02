@@ -6,6 +6,7 @@ from django.contrib.auth import (
     logout,
 )
 from .forms import UserRegisterForm, UserLoginForm
+from rest_framework.authtoken.models import Token
 
 class RegisterView(View):
     form_class = UserRegisterForm
@@ -61,6 +62,8 @@ class LoginView(View):
             )
             if user is not None:
                 login(request, user)
+                token, created = Token.objects.get_or_create(user=user)
+                
                 return redirect('index')
         return render(
             request, 
