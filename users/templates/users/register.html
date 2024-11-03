@@ -1,11 +1,12 @@
 {% extends 'home/base.html' %}
+{% load i18n %}
 
 {% block content %}
-<h2> Registrar usuario </h2>
+<h2>{% trans "Registrar usuario" %}</h2>
 <form action="" method="post">
     {% csrf_token %}
     <div class="row">
-        <label for="">Nombre de Usuario</label>
+        <label for="">{% trans "Nombre de Usuario" %}</label>
         {{ form.username }}
         
         {% if form.username.errors %}
@@ -14,7 +15,7 @@
     </div>
 
     <div class="row">
-        <label for="">Email</label>
+        <label for="">{% trans "Email" %}</label>
         {{ form.email }}
         
         {% if form.email.errors %}
@@ -23,7 +24,7 @@
     </div>
         
     <div class="row">
-        <label for="">Contraseña</label>
+        <label for="">{% trans "Contraseña" %}</label>
         {{ form.password1 }}
         
         {% if form.password1.errors %}
@@ -32,7 +33,7 @@
     </div>
 
     <div class="row">
-        <label for="">Repita su contraseña</label>
+        <label for="">{% trans "Repita su contraseña" %}</label>
         {{ form.password2 }}
         
         {% if form.password2.errors %}
@@ -41,17 +42,17 @@
     </div>
 
     <div class="row">
-        <label for="">Nombre</label>
+        <label for="">{% trans "Nombre" %}</label>
         {{ form.first_name }}
     </div>
         
     <div class="row">
-        <label for="">Apellido</label>
+        <label for="">{% trans "Apellido" %}</label>
         {{ form.last_name }}
     </div>
 
     <div class="row all">
-        <button type="submit" class="btn btn-success">Registrar Usuario</button>
+        <button type="submit" class="btn btn-success">{% trans "Registrar Usuario" %}</button>
     </div>
 </form>
 {% endblock %}

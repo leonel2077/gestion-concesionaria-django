@@ -1,24 +1,26 @@
+
 {% extends 'home/base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container d-flex justify-content-center align-items-center">
     <div class="row">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Ingrese al sitio</h3>
+                <h3 class="card-title">{% trans "Ingrese al sitio" %}</h3>
             </div>
             <div class="card-body">
                 <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                        <input type="text" class="form-control" id="username" name="username" placeholder='{% trans "Nombre de Usuario" %}'>
+                        <input type="password" class="form-control" id="password" name="password" placeholder='{% trans "Contraseña" %}'>
                     </div>
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Ingresar" %}</button>
                 </form>
             </div>
         </div>
-        <a href="{% url 'register' %}">¿No tenes cuenta? Registrate aqui</a>
+        <a href="{% url 'register' %}">{% trans "¿No tenes cuenta? Registrate aqui" %}</a>
     </div>
 </div>
 {% endblock %}
