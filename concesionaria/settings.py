@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z*d8mq8urvamx2be$2#!&z7&pbbf%4#bo@ez=)w#fz1i&@pc9&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -49,6 +49,7 @@ SELF_APPS = [
 EXTERNAL_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + SELF_APPS + EXTERNAL_APPS
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'concesionaria.urls'
@@ -118,15 +120,24 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
+from django.utils.translation import gettext_lazy as _
+LANGUAGE_CODE = 'es'
 
-LANGUAGE_CODE = 'en-us'
+LENGUAGES = (
+    ('en', _('English')),
+    ('es', _('Español')),
+)
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
+import os
+LOCALE_PATHS=(
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

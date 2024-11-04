@@ -5,7 +5,10 @@ from rest_framework.views import APIView
 from api_v1.serializers.clientes_serializer import ClienteSerializer
 
 class CrearClienteView(APIView):
-
+    """
+    post:
+    Crea un nuevo cliente en el sistema. Solo accesible para usuarios STAFF.
+    """
     def post(self, request):
         if not request.user.is_staff:
             return Response({'error': 'No tiene permisos para crear clientes'}, status=status.HTTP_403_FORBIDDEN)

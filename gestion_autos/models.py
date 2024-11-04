@@ -1,5 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import (
+    activate,
+    get_language,
+    deactivate,
+    gettext_lazy as _)
+
 
 class Marca(models.Model):
     nombre = models.CharField(max_length=100)
@@ -27,13 +33,13 @@ class Pais(models.Model):
         return f'{self.nombre}'
 
 class Auto(models.Model):
-    modelo = models.ForeignKey(ModeloAuto, on_delete=models.CASCADE)
-    año_fabricacion = models.IntegerField()
-    cantidad_puertas = models.IntegerField()
-    cilindrada = models.FloatField()
-    tipo_combustible = models.ForeignKey(TipoCombustible, on_delete=models.CASCADE)
-    pais_fabricacion = models.ForeignKey(Pais, on_delete=models.CASCADE)
-    precio_dolares = models.DecimalField(max_digits=10, decimal_places=2)
+    modelo = models.ForeignKey(ModeloAuto, on_delete=models.CASCADE, verbose_name=_('model'))
+    año_fabricacion = models.IntegerField(verbose_name=_('year of manufacture'))
+    cantidad_puertas = models.IntegerField(verbose_name=_('number of doors'))
+    cilindrada = models.FloatField(verbose_name=_('cylinders'))
+    tipo_combustible = models.ForeignKey(TipoCombustible, on_delete=models.CASCADE,verbose_name=_('fuel type'))
+    pais_fabricacion = models.ForeignKey(Pais, on_delete=models.CASCADE,verbose_name=_('country of manufacture'))
+    precio_dolares = models.DecimalField(max_digits=10, decimal_places=2,verbose_name=_('price'))
 
     def __str__(self):
         return f'{self.modelo} ({self.año_fabricacion})'
