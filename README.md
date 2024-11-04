@@ -5,7 +5,8 @@
 - [Mateo Roble](https://github.com/MateoRoble)
 
 ## Descripción
-Este proyecto es un sistema web para la gestión de una concesionaria de autos, desarrollado con Django.
+Este proyecto es un sistema web para la gestión de una concesionaria de autos, desarrollado con Django. Incluye una API usando Django Rest Framework, a su vez,
+está documentada utilizando Swagger
 
 ## Instalación y Configuración
 1. Clonar el repositorio:
@@ -33,6 +34,8 @@ Este proyecto es un sistema web para la gestión de una concesionaria de autos, 
 - **Comentarios**: Los usuarios pueden comentar en los detalles de cada auto. Los comentarios pueden ser editados o eliminados solo por el autor del comentario.
 - **Roles de Usuario**: Implementación de roles de Administrador y Usuario normal con diferentes permisos.
 - **Filtro por Marca**: Filtrado de autos por marca en la lista de autos.
+- **Traducciones**: Permite al usuario elegir entre idiomas (Ingles o Español).
+- **Documentación de la API**: Ingresando a `http://127.0.0.1:8000/swagger/` podras ver la documentacion de la API respectivamente.
 
 ## Estructura del Proyecto
 
